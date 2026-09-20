@@ -13,7 +13,7 @@ let package = Package(
     targets: [
         .target(name: "DaybookCore", path: "src/core"),
         .executableTarget(name: "DaybookCLI", dependencies: ["DaybookCore"], path: "src/cli"),
-        .executableTarget(name: "DaybookPreview", dependencies: ["DaybookCore"], path: "app", exclude: ["Info.plist", "Daybook.entitlements"]),
+        .executableTarget(name: "DaybookPreview", dependencies: ["DaybookCore"], path: "app", exclude: ["Info.plist", "Daybook.entitlements", "assets.xcassets"]),
         .target(name: "DaybookTestSupport", dependencies: ["DaybookCore"], path: "tests/support"),
         .executableTarget(name: "DaybookChecks", dependencies: ["DaybookTestSupport"], path: "tests/runner"),
         .testTarget(name: "DaybookCoreTests", dependencies: ["DaybookTestSupport"], path: "tests/core")

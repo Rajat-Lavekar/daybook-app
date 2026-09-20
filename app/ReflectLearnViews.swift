@@ -11,6 +11,7 @@ struct ReflectView: View {
     @State private var tomorrow = ""
     @State private var allowExcerpt = false
     @State private var saved = false
+    @FocusState private var journalFocused: Bool
     var body: some View {
         Page {
             PageHeader(eyebrow: "REFLECT / A SMALL PAUSE", title: "How are you, really?", detail: "You don't need a perfect day to take a moment for yourself.")
@@ -21,12 +22,13 @@ struct ReflectView: View {
             }
             Panel {
                 SectionLabel(text: "A few words, if you want")
-                TextField("What helped today?", text: $helped, axis: .vertical).lineLimit(2...5).inputStyle()
-                TextField("What felt difficult?", text: $difficult, axis: .vertical).lineLimit(2...5).inputStyle()
-                TextField("One small action for tomorrow", text: $tomorrow, axis: .vertical).lineLimit(2...5).inputStyle()
+                TextField("What helped today?", text: $helped, axis: .vertical).lineLimit(2...5).inputStyle().focused($journalFocused).disabled(saved)
+                TextField("What felt difficult?", text: $difficult, axis: .vertical).lineLimit(2...5).inputStyle().focused($journalFocused).disabled(saved)
+                TextField("One small action for tomorrow", text: $tomorrow, axis: .vertical).lineLimit(2...5).inputStyle().focused($journalFocused).disabled(saved)
                 Toggle("Allow these words in a review I explicitly export", isOn: $allowExcerpt).font(.caption)
                 Text("Stored on this device. Exported reviews exclude journal text unless both this entry and the export allow it.").font(.caption).foregroundStyle(Theme.muted)
                 Button(saved ? "Saved ✓" : "Save this moment") {
+                    journalFocused = false
                     guard model.requireLiveData() else { return }
                     model.update { $0.checkIns.insert(CheckIn(mood: mood, energy: energy, stress: stress, helped: helped, difficult: difficult, tomorrow: tomorrow, allowExcerpt: allowExcerpt), at: 0) }
                     if model.error == nil { helped = ""; difficult = ""; tomorrow = ""; allowExcerpt = false; saved = true }
@@ -46,6 +48,18 @@ struct ReflectView: View {
                 }
             }
         }
+        .navigationTitle("Check in")
+        .scrollDismissesKeyboard(.interactively)
+        .onDisappear { journalFocused = false }
+        #if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") { journalFocused = false }
+            }
+        }
+        #endif
     }
     private func rating(_ title: String, value: Binding<Int>, low: String, high: String) -> some View {
         VStack(alignment: .leading, spacing: 8) {

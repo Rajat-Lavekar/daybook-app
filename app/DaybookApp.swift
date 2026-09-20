@@ -72,7 +72,7 @@ struct TodayView: View {
                 Panel {
                     Image(systemName: "square.and.pencil").foregroundStyle(Theme.ochre)
                     Text("A moment\nfor you.").font(.system(size: 24, design: .serif))
-                    Button("Check in →") { tab = 3 }.buttonStyle(.plain).font(.caption.weight(.semibold))
+                    NavigationLink("Check in →") { ReflectView() }.buttonStyle(.plain).font(.caption.weight(.semibold))
                 }
             }
             SectionLabel(text: "Instead of the scroll")

@@ -62,3 +62,10 @@ Bank/UPI API sync; historical SMS inbox access; export adapters other than the t
 - Migrated the project to `daybook-app`; verified all 43 copied files against the original, including ignored local data. The original directory remains as a backup.
 - Fresh builds from the new path: 20/20 standalone regression checks passed; native Mac preview built successfully with its data directory pointing to the new repository.
 - private-data, build products, SwiftPM state and personal Xcode state remain ignored and are excluded from the initial source commit. No physical-phone deployment was performed.
+
+### Check-in keyboard and app icon — 21 September 2026 (0.3.0 / build 5)
+- Saving a reflection clears keyboard focus before saving; iOS also offers a keyboard Done button and interactive scroll dismissal. Saved text fields stay disabled until a new check-in starts.
+- Today's Check in shortcut now pushes onto its navigation stack instead of switching tabs, providing native Back navigation. The Reflect tab remains a root screen navigated via tabs.
+- Added original, reproducible book-and-leaf icon artwork and an iOS app-icon asset catalog. Preserved signing settings and updated the project generator to include assets.
+- Mac preview and iOS simulator builds passed. Simulator verification with a fictional entry: software keyboard visible before Save, absent after Save, saved entry displayed, Back returned to Today. New icon visibly rendered on the simulator Home Screen.
+- Edge-swipe automation did not produce a gesture; native back swipe and keyboard Done need a physical-phone check. No phone installation performed.

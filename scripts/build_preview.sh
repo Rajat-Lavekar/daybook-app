@@ -11,7 +11,7 @@ info = {
     'CFBundleName': 'Daybook', 'CFBundleDisplayName': 'Daybook',
     'CFBundleIdentifier': 'local.daybook.preview', 'CFBundleExecutable': 'DaybookPreview',
     'CFBundlePackageType': 'APPL', 'CFBundleShortVersionString': '0.3.0',
-    'CFBundleVersion': '4', 'LSMinimumSystemVersion': '14.0',
+    'CFBundleVersion': '5', 'LSMinimumSystemVersion': '14.0',
     'NSHighResolutionCapable': True,
     'DaybookPreviewDataDirectory': str(root / 'private-data' / 'preview'),
 }

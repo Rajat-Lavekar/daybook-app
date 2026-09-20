@@ -24,8 +24,13 @@ def encode(value, depth=0):
         return '(\n' + ''.join(f'{pad}\t{encode(v, depth + 1)},\n' for v in value) + pad + ')'
     return str(value) if isinstance(value, int) else json.dumps(value)
 
-source_refs, builds = [], []
+source_refs, builds, resource_builds = [], [], []
 for path in sorted((ROOT / 'app').glob('*')):
+    if path.suffix == '.xcassets':
+        ref = add('file:' + path.name, 'PBXFileReference', lastKnownFileType='folder.assetcatalog', path=path.name, sourceTree='<group>')
+        source_refs.append(ref)
+        resource_builds.append(add('build:' + path.name, 'PBXBuildFile', fileRef=ref))
+        continue
     if path.suffix not in ('.swift', '.plist', '.entitlements'):
         continue
     kind = {'.swift': 'sourcecode.swift', '.plist': 'text.plist.xml', '.entitlements': 'text.plist.entitlements'}[path.suffix]
@@ -44,7 +49,7 @@ dependency = add('core-product', 'XCSwiftPackageProductDependency', package=pack
 core_link = add('core-link', 'PBXBuildFile', productRef=dependency)
 sources = add('sources', 'PBXSourcesBuildPhase', buildActionMask=2147483647, files=builds, runOnlyForDeploymentPostprocessing=0)
 frameworks = add('frameworks', 'PBXFrameworksBuildPhase', buildActionMask=2147483647, files=[core_link], runOnlyForDeploymentPostprocessing=0)
-resources = add('resources', 'PBXResourcesBuildPhase', buildActionMask=2147483647, files=[], runOnlyForDeploymentPostprocessing=0)
+resources = add('resources', 'PBXResourcesBuildPhase', buildActionMask=2147483647, files=resource_builds, runOnlyForDeploymentPostprocessing=0)
 
 def configuration_list(prefix, common, debug, release):
     configs = []
@@ -58,6 +63,7 @@ project_configs = configuration_list('project-', {
 }, {'DEBUG_INFORMATION_FORMAT': 'dwarf', 'SWIFT_OPTIMIZATION_LEVEL': '-Onone', 'SWIFT_ACTIVE_COMPILATION_CONDITIONS': 'DEBUG'},
    {'DEBUG_INFORMATION_FORMAT': 'dwarf-with-dsym', 'SWIFT_COMPILATION_MODE': 'wholemodule'})
 target_configs = configuration_list('target-', {
+    'ASSETCATALOG_COMPILER_APPICON_NAME': 'app-icon',
     'CODE_SIGN_STYLE': 'Automatic', 'CODE_SIGN_ENTITLEMENTS': 'app/Daybook.entitlements',
     'INFOPLIST_FILE': 'app/Info.plist', 'GENERATE_INFOPLIST_FILE': 'NO',
     'PRODUCT_BUNDLE_IDENTIFIER': 'local.daybook.personal', 'PRODUCT_NAME': '$(TARGET_NAME)',
