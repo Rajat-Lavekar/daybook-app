@@ -1,0 +1,276 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		566F62C77A0C352C286B3951 /* DaybookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2329D82E679E5048726A34 /* DaybookApp.swift */; };
+		626D630683E609A16E6C40BE /* ReviewsSettingsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E9567A7196657A2A262695 /* ReviewsSettingsViews.swift */; };
+		9870965218E06097941F4173 /* MoneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F713F1747ED713920C50C5B5 /* MoneyView.swift */; };
+		AFDC9D8B3678A3053D14AA15 /* BankAlertIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4A7B00F6FBC73D9C6977A9 /* BankAlertIntent.swift */; };
+		B000A465B2602E997F2804FF /* HealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F3C27F6D1B0A4D7E415754 /* HealthView.swift */; };
+		E3E38131EA78C790383DD3E0 /* ReflectLearnViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8946208791998D8091DE1AE7 /* ReflectLearnViews.swift */; };
+		E6E5511D0DFB6484AC21E80B /* DaybookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 8D6A224FA1D1DD751157EB0C /* DaybookCore */; };
+		F6B5F45FFF55524ACEAAED39 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534405F12F47E3F5F8CBF1A1 /* AppModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0E4A7B00F6FBC73D9C6977A9 /* BankAlertIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAlertIntent.swift; sourceTree = "<group>"; };
+		38A007151ABE87CC01A5B6E9 /* Daybook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Daybook.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		534405F12F47E3F5F8CBF1A1 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		68E77A9D7BC78A97D4F4E27B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8946208791998D8091DE1AE7 /* ReflectLearnViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectLearnViews.swift; sourceTree = "<group>"; };
+		B2F3C27F6D1B0A4D7E415754 /* HealthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthView.swift; sourceTree = "<group>"; };
+		C5BEEF2DE776A9EB64B6A612 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		CE87D12B4269CFE9DA66182A /* Daybook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Daybook.entitlements; sourceTree = "<group>"; };
+		EE2329D82E679E5048726A34 /* DaybookApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaybookApp.swift; sourceTree = "<group>"; };
+		F713F1747ED713920C50C5B5 /* MoneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyView.swift; sourceTree = "<group>"; };
+		F7E9567A7196657A2A262695 /* ReviewsSettingsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsSettingsViews.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7561BFB015D8F536760CB671 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6E5511D0DFB6484AC21E80B /* DaybookCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3C3B0F03DC089F93B8457928 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				534405F12F47E3F5F8CBF1A1 /* AppModel.swift */,
+				0E4A7B00F6FBC73D9C6977A9 /* BankAlertIntent.swift */,
+				CE87D12B4269CFE9DA66182A /* Daybook.entitlements */,
+				EE2329D82E679E5048726A34 /* DaybookApp.swift */,
+				B2F3C27F6D1B0A4D7E415754 /* HealthView.swift */,
+				68E77A9D7BC78A97D4F4E27B /* Info.plist */,
+				F713F1747ED713920C50C5B5 /* MoneyView.swift */,
+				8946208791998D8091DE1AE7 /* ReflectLearnViews.swift */,
+				F7E9567A7196657A2A262695 /* ReviewsSettingsViews.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		42944EBC669F21BC22392EB5 = {
+			isa = PBXGroup;
+			children = (
+				3C3B0F03DC089F93B8457928 /* App */,
+				C5BEEF2DE776A9EB64B6A612 /* Package.swift */,
+				FBDC4F23F93125BBEEAE800C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FBDC4F23F93125BBEEAE800C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				38A007151ABE87CC01A5B6E9 /* Daybook.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0E8A3AD980EC179856012B7E /* Daybook */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 976B52545947CA66FD9EF2A4 /* Build configuration list for PBXNativeTarget "Daybook" */;
+			buildPhases = (
+				BCE16DD0260827ECF338C787 /* Sources */,
+				7561BFB015D8F536760CB671 /* Frameworks */,
+				0189424A5A60FED329FA868E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Daybook;
+			packageProductDependencies = (
+				8D6A224FA1D1DD751157EB0C /* DaybookCore */,
+			);
+			productName = Daybook;
+			productReference = 38A007151ABE87CC01A5B6E9 /* Daybook.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		98F54143AB4E86B28C3AFEE0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					0E8A3AD980EC179856012B7E = {
+						CreatedOnToolsVersion = 16.0;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 640DC9EFD529235A8D9E2727 /* Build configuration list for PBXProject "Daybook" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 42944EBC669F21BC22392EB5;
+			packageReferences = (
+				B747EAD6A8D7189EE159E1E4 /* XCLocalSwiftPackageReference "." */,
+			);
+			productRefGroup = FBDC4F23F93125BBEEAE800C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0E8A3AD980EC179856012B7E /* Daybook */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0189424A5A60FED329FA868E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BCE16DD0260827ECF338C787 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6B5F45FFF55524ACEAAED39 /* AppModel.swift in Sources */,
+				AFDC9D8B3678A3053D14AA15 /* BankAlertIntent.swift in Sources */,
+				566F62C77A0C352C286B3951 /* DaybookApp.swift in Sources */,
+				B000A465B2602E997F2804FF /* HealthView.swift in Sources */,
+				9870965218E06097941F4173 /* MoneyView.swift in Sources */,
+				E3E38131EA78C790383DD3E0 /* ReflectLearnViews.swift in Sources */,
+				626D630683E609A16E6C40BE /* ReviewsSettingsViews.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		00F209874A1F7309F6DCEAA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		1A6EFC2CD0AF63DD14BE0438 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = App/Daybook.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9KQC9W5GV3;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = local.daybook.personal;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		4D8F54E7CBAF670D9F6C230D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = App/Daybook.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9KQC9W5GV3;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = local.daybook.personal;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		ED8772ADEC3A6C25161BC957 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		640DC9EFD529235A8D9E2727 /* Build configuration list for PBXProject "Daybook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED8772ADEC3A6C25161BC957 /* Debug */,
+				00F209874A1F7309F6DCEAA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		976B52545947CA66FD9EF2A4 /* Build configuration list for PBXNativeTarget "Daybook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D8F54E7CBAF670D9F6C230D /* Debug */,
+				1A6EFC2CD0AF63DD14BE0438 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		B747EAD6A8D7189EE159E1E4 /* XCLocalSwiftPackageReference "." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = .;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8D6A224FA1D1DD751157EB0C /* DaybookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B747EAD6A8D7189EE159E1E4 /* XCLocalSwiftPackageReference "." */;
+			productName = DaybookCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 98F54143AB4E86B28C3AFEE0 /* Project object */;
+}
