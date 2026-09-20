@@ -16,7 +16,7 @@ Requires Xcode with Swift 6, iOS 17+ for the iPhone app, or macOS 14+ for the pr
 
 ### iPhone
 
-1. Open `Daybook.xcodeproj` and select the **Daybook** scheme.
+1. Open `daybook.xcodeproj` and select the **Daybook** scheme.
 2. Select your signing team under **Signing & Capabilities**; set a unique bundle identifier if needed.
 3. Choose your connected iPhone, enable Developer Mode if prompted, and run.
 
@@ -36,15 +36,15 @@ bash scripts/run_checks.sh
 ## Project structure
 
 ```text
-App/                   SwiftUI screens and Apple integrations
-Sources/DaybookCore/    Models, importers, accounting and storage
-Sources/DaybookCLI/     Local archive and review tools
-Tests/                 Shared regression checks
-scripts/               Build and project utilities
+app/             SwiftUI screens and Apple integrations
+sources/core/    Models, importers, accounting and storage
+sources/cli/     Local archive and review tools
+tests/           Shared regression checks
+scripts/         Build and project utilities
 ```
 
 ## Privacy
 
-Personal data stays local unless explicitly exported. Keep statements, extracts and preview data in the Git-ignored `PrivateData/` folder. The app does not access SMS history or sync directly with banks; bank-alert capture requires a user-configured Shortcut.
+Personal data stays local unless explicitly exported. Keep statements, extracts and preview data in the Git-ignored `private-data/` folder. The app does not access SMS history or sync directly with banks; bank-alert capture requires a user-configured Shortcut.
 
 See [Privacy](PRIVACY.md), [Validation status](VALIDATION.md) and [Finance design](docs/FINANCE_DESIGN.md) for details.

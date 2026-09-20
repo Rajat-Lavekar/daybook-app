@@ -25,7 +25,7 @@ def encode(value, depth=0):
     return str(value) if isinstance(value, int) else json.dumps(value)
 
 source_refs, builds = [], []
-for path in sorted((ROOT / 'App').glob('*')):
+for path in sorted((ROOT / 'app').glob('*')):
     if path.suffix not in ('.swift', '.plist', '.entitlements'):
         continue
     kind = {'.swift': 'sourcecode.swift', '.plist': 'text.plist.xml', '.entitlements': 'text.plist.entitlements'}[path.suffix]
@@ -34,7 +34,7 @@ for path in sorted((ROOT / 'App').glob('*')):
     if path.suffix == '.swift':
         builds.append(add('build:' + path.name, 'PBXBuildFile', fileRef=ref))
 
-app_group = add('app-group', 'PBXGroup', children=source_refs, path='App', sourceTree='<group>')
+app_group = add('app-group', 'PBXGroup', children=source_refs, path='app', sourceTree='<group>')
 product = add('product', 'PBXFileReference', explicitFileType='wrapper.application', includeInIndex=0, path='Daybook.app', sourceTree='BUILT_PRODUCTS_DIR')
 products = add('products', 'PBXGroup', children=[product], name='Products', sourceTree='<group>')
 manifest = add('manifest', 'PBXFileReference', lastKnownFileType='sourcecode.swift', path='Package.swift', sourceTree='<group>')
@@ -58,8 +58,8 @@ project_configs = configuration_list('project-', {
 }, {'DEBUG_INFORMATION_FORMAT': 'dwarf', 'SWIFT_OPTIMIZATION_LEVEL': '-Onone', 'SWIFT_ACTIVE_COMPILATION_CONDITIONS': 'DEBUG'},
    {'DEBUG_INFORMATION_FORMAT': 'dwarf-with-dsym', 'SWIFT_COMPILATION_MODE': 'wholemodule'})
 target_configs = configuration_list('target-', {
-    'CODE_SIGN_STYLE': 'Automatic', 'CODE_SIGN_ENTITLEMENTS': 'App/Daybook.entitlements',
-    'INFOPLIST_FILE': 'App/Info.plist', 'GENERATE_INFOPLIST_FILE': 'NO',
+    'CODE_SIGN_STYLE': 'Automatic', 'CODE_SIGN_ENTITLEMENTS': 'app/Daybook.entitlements',
+    'INFOPLIST_FILE': 'app/Info.plist', 'GENERATE_INFOPLIST_FILE': 'NO',
     'PRODUCT_BUNDLE_IDENTIFIER': 'local.daybook.personal', 'PRODUCT_NAME': '$(TARGET_NAME)',
     'TARGETED_DEVICE_FAMILY': '1', 'SUPPORTED_PLATFORMS': 'iphoneos iphonesimulator',
     'SUPPORTS_MACCATALYST': 'NO', 'LD_RUNPATH_SEARCH_PATHS': ['$(inherited)', '@executable_path/Frameworks'],
@@ -72,12 +72,12 @@ project = add('project', 'PBXProject', attributes={'BuildIndependentTargetsInPar
     buildConfigurationList=project_configs, compatibilityVersion='Xcode 14.0', developmentRegion='en', hasScannedForEncodings=0,
     knownRegions=['en', 'Base'], mainGroup=root_group, packageReferences=[package], productRefGroup=products,
     projectDirPath='', projectRoot='', targets=[target])
-directory = ROOT / 'Daybook.xcodeproj'
+directory = ROOT / 'daybook.xcodeproj'
 directory.mkdir(exist_ok=True)
 (directory / 'project.pbxproj').write_text('// !$*UTF8*$!\n' + encode({'archiveVersion': 1, 'classes': {}, 'objectVersion': 56, 'objects': objects, 'rootObject': project}) + '\n')
 scheme = directory / 'xcshareddata/xcschemes'
 scheme.mkdir(parents=True, exist_ok=True)
-reference = f'<BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="{target}" BuildableName="Daybook.app" BlueprintName="Daybook" ReferencedContainer="container:Daybook.xcodeproj"/>'
+reference = f'<BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="{target}" BuildableName="Daybook.app" BlueprintName="Daybook" ReferencedContainer="container:daybook.xcodeproj"/>'
 (scheme / 'Daybook.xcscheme').write_text(f'''<?xml version="1.0" encoding="UTF-8"?>
 <Scheme LastUpgradeVersion="1600" version="1.3">
   <BuildAction parallelizeBuildables="YES" buildImplicitDependencies="YES"><BuildActionEntries><BuildActionEntry buildForTesting="YES" buildForRunning="YES" buildForProfiling="YES" buildForArchiving="YES" buildForAnalyzing="YES">{reference}</BuildActionEntry></BuildActionEntries></BuildAction>
@@ -87,4 +87,4 @@ reference = f'<BuildableReference BuildableIdentifier="primary" BlueprintIdentif
   <ArchiveAction buildConfiguration="Release" revealArchiveInOrganizer="YES"/>
 </Scheme>
 ''')
-print('Generated Daybook.xcodeproj and the shared Daybook scheme.')
+print('Generated daybook.xcodeproj and the shared Daybook scheme.')

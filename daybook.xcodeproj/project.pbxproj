@@ -56,7 +56,7 @@
 				8946208791998D8091DE1AE7 /* ReflectLearnViews.swift */,
 				F7E9567A7196657A2A262695 /* ReviewsSettingsViews.swift */,
 			);
-			path = App;
+			path = app;
 			sourceTree = "<group>";
 		};
 		42944EBC669F21BC22392EB5 = {
@@ -183,11 +183,11 @@
 		1A6EFC2CD0AF63DD14BE0438 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = App/Daybook.entitlements;
+				CODE_SIGN_ENTITLEMENTS = app/Daybook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9KQC9W5GV3;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = App/Info.plist;
+				INFOPLIST_FILE = app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -203,11 +203,11 @@
 		4D8F54E7CBAF670D9F6C230D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = App/Daybook.entitlements;
+				CODE_SIGN_ENTITLEMENTS = app/Daybook.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9KQC9W5GV3;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = App/Info.plist;
+				INFOPLIST_FILE = app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

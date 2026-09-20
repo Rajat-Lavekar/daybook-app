@@ -13,7 +13,7 @@ info = {
     'CFBundlePackageType': 'APPL', 'CFBundleShortVersionString': '0.3.0',
     'CFBundleVersion': '4', 'LSMinimumSystemVersion': '14.0',
     'NSHighResolutionCapable': True,
-    'DaybookPreviewDataDirectory': str(root / 'PrivateData' / 'Preview'),
+    'DaybookPreviewDataDirectory': str(root / 'private-data' / 'preview'),
 }
 with (root / '.build/Daybook.app/Contents/Info.plist').open('wb') as f:
     plistlib.dump(info, f)

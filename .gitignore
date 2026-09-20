@@ -1,4 +1,5 @@
 # Local financial, health, journal and import-validation files.
+private-data/
 PrivateData/
 
 # Build products and personal IDE state.
@@ -8,7 +9,7 @@ PrivateData/
 *.xcuserstate
 xcuserdata/
 
-# Private exports and credentials, even if saved outside PrivateData.
+# Private exports and credentials, even if saved outside private-data.
 *.daybook
 *.receipt
 *.key

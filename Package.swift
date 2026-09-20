@@ -11,12 +11,12 @@ let package = Package(
         .executable(name: "DaybookChecks", targets: ["DaybookChecks"])
     ],
     targets: [
-        .target(name: "DaybookCore"),
-        .executableTarget(name: "DaybookCLI", dependencies: ["DaybookCore"]),
-        .executableTarget(name: "DaybookPreview", dependencies: ["DaybookCore"], path: "App", exclude: ["Info.plist", "Daybook.entitlements"]),
-        .target(name: "DaybookTestSupport", dependencies: ["DaybookCore"], path: "Tests/Support"),
-        .executableTarget(name: "DaybookChecks", dependencies: ["DaybookTestSupport"], path: "Tests/Runner"),
-        .testTarget(name: "DaybookCoreTests", dependencies: ["DaybookTestSupport"])
+        .target(name: "DaybookCore", path: "sources/core"),
+        .executableTarget(name: "DaybookCLI", dependencies: ["DaybookCore"], path: "sources/cli"),
+        .executableTarget(name: "DaybookPreview", dependencies: ["DaybookCore"], path: "app", exclude: ["Info.plist", "Daybook.entitlements"]),
+        .target(name: "DaybookTestSupport", dependencies: ["DaybookCore"], path: "tests/support"),
+        .executableTarget(name: "DaybookChecks", dependencies: ["DaybookTestSupport"], path: "tests/runner"),
+        .testTarget(name: "DaybookCoreTests", dependencies: ["DaybookTestSupport"], path: "tests/core")
     ],
     swiftLanguageModes: [.v5]
 )
