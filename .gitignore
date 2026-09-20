@@ -1,10 +1,23 @@
+# Local financial, health, journal and import-validation files.
+PrivateData/
+
+# Build products and personal IDE state.
 .build/
 .swiftpm/
 .DS_Store
 *.xcuserstate
 xcuserdata/
-PrivateData/
+
+# Private exports and credentials, even if saved outside PrivateData.
 *.daybook
 *.receipt
 *.key
 *.review.json
+state-v1.json
+state-v1.json.lock
+.env
+.env.*
+!.env.example
+*.p12
+*.p8
+*.mobileprovision

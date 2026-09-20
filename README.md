@@ -4,6 +4,16 @@ A private, native SwiftUI companion for spending, reflection, health and reading
 
 **Status: first implementation, signed, installed and opening on iPhone 15 using a free Personal Team.** The Mac preview uses the same screens and shared logic. Sleep and fitness data are confirmed visible through HealthKit on the phone. The iOS Shortcuts capture action still needs on-device setup and testing. See [VALIDATION.md](VALIDATION.md) for what has actually been checked.
 
+## Private local files
+
+Keep personal statements, screenshots, import extracts, ledger data and AI review packets under `PrivateData/`. The entire folder is ignored by Git; its contents stay on your Mac and are not included in a clone of this repository.
+
+- `PrivateData/ImportValidation/`: personal statement extracts and validation artifacts.
+- `PrivateData/Preview/`: the local Mac preview ledger.
+- Store any future personal imports or exports in additional subfolders here. Keep backup recovery keys separate from their encrypted archives.
+
+Source code and test fixtures must use fictional records. Build outputs and personal Xcode state are separately ignored. Git ignore rules do not encrypt files or replace a backup.
+
 ## What is implemented
 
 | Area | This build |
