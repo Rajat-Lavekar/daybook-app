@@ -21,3 +21,6 @@ state-v1.json.lock
 *.p12
 *.p8
 *.mobileprovision
+
+# Local planning notes.
+/IMPLEMENTATION_PLAN.md
