@@ -69,3 +69,8 @@ Bank/UPI API sync; historical SMS inbox access; export adapters other than the t
 - Added original, reproducible book-and-leaf icon artwork and an iOS app-icon asset catalog. Preserved signing settings and updated the project generator to include assets.
 - Mac preview and iOS simulator builds passed. Simulator verification with a fictional entry: software keyboard visible before Save, absent after Save, saved entry displayed, Back returned to Today. New icon visibly rendered on the simulator Home Screen.
 - Edge-swipe automation did not produce a gesture; native back swipe and keyboard Done need a physical-phone check. No phone installation performed.
+
+### Return navigation — 21 September 2026
+- Today's Money and Health shortcuts now push onto the current navigation stack rather than switching tabs. Removed the unused tab binding from TodayView.
+- Native Back returns to the originating screen; check-ins, readings and reviews already use this behavior. Sheets retain their existing Cancel/Done return actions. Top-level tab selection remains standard tab navigation, not browser-style history.
+- Mac and iOS simulator builds passed. Simulator verified Today → Money → Back → Today and Today → Health → Back → Today. Physical edge-swipe verification remains pending; no phone deployment.

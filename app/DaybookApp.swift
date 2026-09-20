@@ -33,7 +33,7 @@ struct RootView: View {
                 Button { settings = true } label: { Image(systemName: "slider.horizontal.3").padding(8) }.buttonStyle(.plain).accessibilityLabel("Settings and backup")
             }.padding(.horizontal, 24).padding(.vertical, 12).background(Theme.cream)
             TabView(selection: $tab) {
-                NavigationStack { TodayView(tab: $tab) }.tabItem { Label("Today", systemImage: "sun.max") }.tag(0)
+                NavigationStack { TodayView() }.tabItem { Label("Today", systemImage: "sun.max") }.tag(0)
                 NavigationStack { MoneyView() }.tabItem { Label("Money", systemImage: "indianrupeesign.circle") }.tag(1)
                 NavigationStack { HealthView() }.tabItem { Label("Health", systemImage: "heart") }.tag(2)
                 NavigationStack { ReflectView() }.tabItem { Label("Reflect", systemImage: "square.and.pencil") }.tag(3)
@@ -49,7 +49,6 @@ struct RootView: View {
 
 struct TodayView: View {
     @EnvironmentObject var model: AppModel
-    @Binding var tab: Int
     var body: some View {
         Page {
             PageHeader(eyebrow: Date().formatted(.dateTime.weekday(.wide).month(.wide).day()), title: "A little more intentional.", detail: "Know where your money goes. Make room for what matters.")
@@ -60,14 +59,14 @@ struct TodayView: View {
                 Divider()
                 Text(model.snapshot.coverageNote).font(.caption).foregroundStyle(Theme.muted)
                 if model.weekSummary.provisionalPaise > 0 { Text("\(Money.format(model.weekSummary.provisionalPaise)) awaiting review · excluded above").font(.caption).foregroundStyle(Theme.ochre) }
-                Button("Open your money →") { tab = 1 }.buttonStyle(.plain).font(.subheadline.weight(.semibold))
+                NavigationLink("Open your money →") { MoneyView().navigationTitle("Money") }.buttonStyle(.plain).font(.subheadline.weight(.semibold))
             }
             HStack(alignment: .top, spacing: 12) {
                 Panel {
                     Image(systemName: "moon.stars").foregroundStyle(Theme.green)
                     Text(model.snapshot.health.last(where: { $0.sleepHours != nil })?.sleepHours.map { String(format: "%.1f h", $0) } ?? "—").font(.system(size: 27, design: .serif))
                     Text("Latest recorded sleep").font(.caption).foregroundStyle(Theme.muted)
-                    Button("View health") { tab = 2 }.buttonStyle(.plain).font(.caption.weight(.semibold))
+                    NavigationLink("View health") { HealthView().navigationTitle("Health") }.buttonStyle(.plain).font(.caption.weight(.semibold))
                 }
                 Panel {
                     Image(systemName: "square.and.pencil").foregroundStyle(Theme.ochre)
