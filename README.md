@@ -37,8 +37,8 @@ bash scripts/run_checks.sh
 
 ```text
 app/             SwiftUI screens and Apple integrations
-sources/core/    Models, importers, accounting and storage
-sources/cli/     Local archive and review tools
+src/core/        Models, importers, accounting and storage
+src/cli/         Local archive and review tools
 tests/           Shared regression checks
 scripts/         Build and project utilities
 ```
