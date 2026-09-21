@@ -34,9 +34,9 @@ enum CaptureText {
 }
 
 public enum BankAlertParser {
-    /// Dates use the bank's reported day in India. The SMS templates do not supply a posting time.
+    /// A supplied message timestamp is preferred; live capture time is an explicitly labeled fallback.
     /// Body text is user-supplied evidence, not an authenticated bank feed; records stay provisional.
-    public static func parse(_ text: String, receivedAt: Date = Date()) throws -> Transaction {
+    public static func parse(_ text: String, receivedAt: Date = Date(), messageTimestamp: Date? = nil, useCaptureTime: Bool = false) throws -> Transaction {
         guard text.utf8.count <= 16_384 else { throw DaybookError.invalid("Paste one bank message at a time.") }
         let flat = CaptureText.flat(text), lower = flat.lowercased()
         let requests = ["otp", "one time password", "collect request", "payment request", "requested", "will be debited", "will be deducted", "mandate"]
@@ -56,24 +56,43 @@ public enum BankAlertParser {
         let suffix = CaptureText.match(#"\b(?:a/c|ac|account)\s*(?:no\.?\s*)?[Xx*•]*(\d{4})\b"#, in: flat)?.first
         let reference = CaptureText.match(#"\b(?:UPI\s*(?:Ref(?:erence)?|Txn)|Ref(?:erence)?(?:\s*(?:No|Num))?|RRN)\s*[:.#-]?\s*([A-Za-z0-9]{6,40})\b"#, in: flat)?.first ?? ""
         let dateText = CaptureText.match(#"\bon\s+(\d{2}[-/]\d{2}[-/]\d{2,4})\b"#, in: flat)?.first
-        let date: Date
+        let bankDate: Date?
         if let dateText {
             guard let parsed = CaptureText.bankDate(dateText) else { throw DaybookError.invalid("The bank date is invalid. Review this message manually.") }
-            date = parsed
-        } else { date = receivedAt }
+            bankDate = parsed
+        } else { bankDate = nil }
+        let date: Date
+        let timeSource: PaymentTimeSource
+        let timingNote: String
+        if let messageTimestamp {
+            date = messageTimestamp; timeSource = .messageTimestamp
+            timingNote = "Time is the supplied message timestamp, not a verified bank posting time."
+        } else if useCaptureTime && (bankDate == nil || CaptureText.indiaCalendar.isDate(bankDate!, inSameDayAs: receivedAt)) {
+            date = receivedAt; timeSource = .automationRun
+            timingNote = "Time is when the automation ran, used as an estimate; the message timestamp was not supplied."
+        } else if let bankDate {
+            date = bankDate; timeSource = .bankDateOnly
+            timingNote = "Bank-reported date only; payment time is unavailable."
+        } else {
+            date = receivedAt; timeSource = .automationRun
+            timingNote = "Date and time are capture time; no bank date or message timestamp was supplied."
+        }
         let direction = incoming ? "from" : "(?:to|towards|at)"
         let merchant = CaptureText.match("\\b" + direction + #"\s+(.+?)(?=\s+on\s+\d{2}[-/]|\s+(?:via|ref|upi|avl|bal|from)\b|$)"#, in: flat)?.first
         let dividend = incoming && lower.contains("towards nach-")
         let counterparty = dividend ? (CaptureText.match(#"\btowards\s+(.+?)(?:\s+Kotak Bank)?$"#, in: flat)?.first ?? "Bank credit") : (merchant ?? "Review counterparty")
         let sampleMatched = suffix != nil && dateText != nil && ((!reference.isEmpty && (lower.hasPrefix("sent ") || lower.hasPrefix("received "))) || dividend)
-        var memo = dateText == nil ? "Date is capture time; no bank date was found." : "Bank-reported date; time is unavailable (shown at midnight IST)."
+        var memo = timingNote
         if dividend { memo += " Bank credit, not a UPI payment. No stable UPI reference was provided." }
         if !sampleMatched { memo += " Unrecognized template: check every field." }
-        return Transaction(amountPaise: amount, date: date, merchant: counterparty,
+        var entry = Transaction(amountPaise: amount, date: date, merchant: counterparty,
             account: suffix.map { CaptureText.account(bank: bank, suffix: $0) } ?? "\(bank) · unknown account", reference: reference,
             memo: memo, kind: incoming ? .income : .expense,
             status: lower.contains("failed") || lower.contains("declined") ? .failed : .provisional,
             source: "\(bank) SMS · \(sampleMatched ? "sample-matched format" : "unrecognized format")",
             fingerprint: reference.isEmpty ? "" : Finance.fingerprint(flat))
+        entry.timeSource = timeSource
+        entry.bankReportedDate = bankDate
+        return entry
     }
 }

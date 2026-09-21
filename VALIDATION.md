@@ -74,3 +74,9 @@ Bank/UPI API sync; historical SMS inbox access; export adapters other than the t
 - Today's Money and Health shortcuts now push onto the current navigation stack rather than switching tabs. Removed the unused tab binding from TodayView.
 - Native Back returns to the originating screen; check-ins, readings and reviews already use this behavior. Sheets retain their existing Cancel/Done return actions. Top-level tab selection remains standard tab navigation, not browser-style history.
 - Mac and iOS simulator builds passed. Simulator verified Today → Money → Back → Today and Today → Health → Back → Today. Physical edge-swipe verification remains pending; no phone deployment.
+
+### Payment timestamp support — 21 September 2026
+- Capture Bank Alert now accepts an optional message timestamp and preserves its provenance and the bank-reported day. Same-day live capture has an explicitly labeled automation-time fallback; historical manual inputs stay date-only.
+- 21/21 regression checks passed, including explicit timestamp priority, same-day fallback, delayed alerts, manual historical input, replay stability and legacy Codable compatibility. iOS simulator build including App Intent metadata passed.
+- Actual Shortcuts message timestamp-property availability remains unverified on the phone. No historical records changed; no physical deployment.
+- Weekly fitness alternatives are design proposals documented in docs/HEALTH_DESIGN.md; no additional HealthKit reads have been implemented or authorized on device yet.

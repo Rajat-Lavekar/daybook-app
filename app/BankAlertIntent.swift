@@ -7,8 +7,9 @@ struct CaptureBankAlertIntent: AppIntent {
     static var description = IntentDescription("Parse one Kotak/HDFC transaction message as a provisional Daybook record. No inbox access.")
     static var openAppWhenRun = false
     @Parameter(title: "Bank message") var message: String
+    @Parameter(title: "Message timestamp", description: "Optional original message date and time. If absent, same-day alerts use the automation run time as an estimate.") var messageTimestamp: Date?
     func perform() async throws -> some IntentResult & ProvidesDialog {
-        let entry = try BankAlertParser.parse(message)
+        let entry = try BankAlertParser.parse(message, messageTimestamp: messageTimestamp, useCaptureTime: true)
         let store = SnapshotStore(url: AppModel.storeURL())
         var inserted = 0
         try store.update { state in

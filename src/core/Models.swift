@@ -18,6 +18,10 @@ public enum EntryKind: String, Codable, CaseIterable, Sendable { case expense, i
 public enum EntryStatus: String, Codable, CaseIterable, Sendable { case provisional, confirmed, pending, failed }
 public enum EntryDirection: String, Codable, Sendable { case debit, credit }
 
+public enum PaymentTimeSource: String, Codable, Sendable {
+    case bankDateOnly, messageTimestamp, automationRun
+}
+
 public struct Transaction: Codable, Identifiable, Equatable, Sendable {
     public var id: UUID
     public var amountPaise: Int64
@@ -33,6 +37,9 @@ public struct Transaction: Codable, Identifiable, Equatable, Sendable {
     public var source: String
     public var fingerprint: String
     public var updatedAt: Date
+    /// Optional so older snapshots and archives decode without migration.
+    public var timeSource: PaymentTimeSource?
+    public var bankReportedDate: Date?
     /// Source direction survives a later user change to economic kind (e.g. transfer).
     /// Optional for compatibility with existing schema-1 snapshots.
     public var direction: EntryDirection?

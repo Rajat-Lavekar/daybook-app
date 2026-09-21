@@ -155,6 +155,33 @@ public final class CoreChecks {
         XCTAssertEqual(received.reference, "333333333333")
         XCTAssertThrowsError(try BankAlertParser.parse("Sent Rs.1.00 from Kotak Bank A/c X1234 to Example on 31-02-26. UPI Ref 111111111111"))
     }
+    func testAlertTimestampProvenanceAndReplay() throws {
+        let text = "Sent Rs.75.00 From HDFC Bank A/C *5678 To SAMPLE PERSON On 12/09/26 Ref 222222222222"
+        let messageDate = ISO8601DateFormatter().date(from: "2026-09-12T17:25:00Z")!
+        let later = messageDate.addingTimeInterval(86400)
+        let message = try BankAlertParser.parse(text, receivedAt: later, messageTimestamp: messageDate, useCaptureTime: true)
+        XCTAssertEqual(message.date, messageDate)
+        XCTAssertEqual(message.timeSource, .messageTimestamp)
+        XCTAssertEqual(message.bankReportedDate, ISO8601DateFormatter().date(from: "2026-09-11T18:30:00Z"))
+        let live = try BankAlertParser.parse(text, receivedAt: messageDate, useCaptureTime: true)
+        XCTAssertEqual(live.date, messageDate); XCTAssertEqual(live.timeSource, .automationRun)
+        let historical = try BankAlertParser.parse(text, receivedAt: later, useCaptureTime: true)
+        XCTAssertEqual(historical.timeSource, .bankDateOnly)
+        XCTAssertEqual(historical.date, message.bankReportedDate)
+        let manual = try BankAlertParser.parse(text, receivedAt: messageDate)
+        XCTAssertEqual(manual.timeSource, .bankDateOnly)
+        var snapshot = Snapshot()
+        Finance.ingest([message], into: &snapshot)
+        Finance.ingest([try BankAlertParser.parse(text, receivedAt: later, useCaptureTime: true)], into: &snapshot)
+        XCTAssertEqual(snapshot.transactions.count, 1)
+        XCTAssertEqual(snapshot.transactions[0].date, messageDate)
+        let data = try DaybookJSON.encode(snapshot)
+        XCTAssertEqual(try DaybookJSON.decode(Snapshot.self, from: data).transactions[0].timeSource, .messageTimestamp)
+        var legacy = try JSONSerialization.jsonObject(with: DaybookJSON.encode(message)) as! [String: Any]
+        legacy.removeValue(forKey: "timeSource"); legacy.removeValue(forKey: "bankReportedDate")
+        XCTAssertNil(try DaybookJSON.decode(Transaction.self, from: JSONSerialization.data(withJSONObject: legacy)).timeSource)
+    }
+
     func testFutureMandateAndNonUPICredit() throws {
         XCTAssertThrowsError(try BankAlertParser.parse("E-Mandate! Rs.123.00 will be deducted on 31/08/26, 00:00:00 For CRED CCBP mandate UMN fictional@provider Maintain Balance -HDFC Bank"))
         let dividend = try BankAlertParser.parse("INR 15.40 is credited to your Account XXXXXX1234 on 09/09/2026 towards NACH-ECS-EXAMPLE DIV 2025-2 Kotak Bank")
@@ -309,6 +336,7 @@ public final class CoreChecks {
             ("testIndependentStoreWritersPreserveAllRecords", testIndependentStoreWritersPreserveAllRecords),
             ("testMacArchiveAndReviewWorkflow", testMacArchiveAndReviewWorkflow),
             ("testSuppliedSMSFormatsWithFictionalIdentifiers", testSuppliedSMSFormatsWithFictionalIdentifiers),
+            ("testAlertTimestampProvenanceAndReplay", testAlertTimestampProvenanceAndReplay),
             ("testFutureMandateAndNonUPICredit", testFutureMandateAndNonUPICredit),
             ("testTwoSidesOfTransferRemainNormalSeparateRecords", testTwoSidesOfTransferRemainNormalSeparateRecords),
             ("testGPayRowsTotalsAndManualTransferClassification", testGPayRowsTotalsAndManualTransferClassification),

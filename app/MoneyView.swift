@@ -84,6 +84,10 @@ struct TransactionRow: View {
             VStack(alignment: .leading, spacing: 5) {
                 Text(entry.merchant).font(.subheadline.weight(.medium)).lineLimit(1)
                 Text("\(entry.category.rawValue) · \(entry.date.formatted(.dateTime.day().month(.abbreviated)))").font(.caption).foregroundStyle(Theme.muted)
+                if let source = entry.timeSource {
+                    Text(source == .bankDateOnly ? "Time unavailable" : "\(entry.date.formatted(date: .omitted, time: .shortened)) · \(source == .messageTimestamp ? "message time" : "estimated time")")
+                        .font(.caption2).foregroundStyle(Theme.muted)
+                }
                 Text(entry.account).font(.caption2).foregroundStyle(Theme.muted)
             }
             Spacer()
@@ -142,7 +146,7 @@ struct TransactionEditor: View {
         guard let paise = Money.parse(amount), paise > 0 else { return }
         var value = entry ?? DaybookCore.Transaction(amountPaise: paise, merchant: merchant)
         value.amountPaise = paise; value.merchant = merchant; value.account = account; value.memo = memo
-        value.date = date; value.category = category; value.kind = kind; value.status = status
+        if value.date != date { value.timeSource = nil }; value.date = date; value.category = category; value.kind = kind; value.status = status
         guard model.save(value) else { return }
         if remember { model.update { $0.merchantRules[merchant.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)] = category } }
         if model.error == nil { dismiss() }
